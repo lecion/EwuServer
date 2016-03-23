@@ -5,12 +5,6 @@ var api = require('./api_routes');
 var setup = require('./setup');
 var web = require('./web_routes');
 module.exports = function (app) {
-    //app.use('/setup',setup);
-    //app.use('/api/auth', api.auth);
-    //app.use('/api/users', api.users);
     app.use('/api', api);
     app.use('/', web);
-    app.use('/order', function(req, res){
-        res.sendFile('/Users/Lecion/Dev/node/EwuServer/app/views/mt.html')
-    })
 }
