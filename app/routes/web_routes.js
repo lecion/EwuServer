@@ -1,14 +1,17 @@
+/**
+ * Created by Lecion on 3/23/16.
+ */
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
-var config = require('../config');
-var util = require('../common/functions');
-router.get('/', function (req, res) {
+var auth = require('../../middlewares/auth');
+
+
+router.get('/test', function (req, res) {
     res.send('this is test');
 })
 
 
-router['post']('/token/', function (req, res) {
+router['post']('/test/token/', function (req, res) {
     var name = req.body.name;
     var token = jwt.sign({user: name}, config.secret, {
         expiresIn: 10,
@@ -20,7 +23,7 @@ router['post']('/token/', function (req, res) {
     })
 })
 
-router.use(function(req, res, next) {
+router.use('/test/auth',function(req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, config.secret, function (err, decoded) {
@@ -41,7 +44,7 @@ router.use(function(req, res, next) {
     }
 })
 
-router['get']('/a', function (req, res) {
+router['get']('/a', auth, function (req, res) {
     res.send('aaaaaaaa')
 })
 

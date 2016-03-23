@@ -1,4 +1,4 @@
-var User = require('../../app/models/User');
+var User = require('..//models/User');
 var config = require('../../config.js');
 var util = require('../../common/functions');
 

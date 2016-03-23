@@ -5,12 +5,25 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
-var routes = require('./routes');
+var routes = require('./app/routes');
 var res_api = require('res.api');
 var app = express();
 
 //db
 mongoose.connect(config.db);
+
+var db  = mongoose.connection;
+
+db.on('open', function(err) {
+    if (err) console.log('mongoose database open with err');
+    console.log('mongodb open success');
+})
+
+app.use(function (req, res, next) {
+    req.db = db;
+    next();
+})
+
 
 app.set('superSecret', config.secret);
 

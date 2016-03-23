@@ -7,7 +7,7 @@ var config = {
 
     status: {
         //Auth
-        INVALID_TOKEN: [101, 'token不合法'],
+        INVALID_TOKEN: [101, 'token无效'],
         TOKEN_NOT_FOUND: [102, '请提供token'],
 
         //注册
