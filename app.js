@@ -58,13 +58,13 @@ if (app.get('env') === 'development') {
   app.use(logger(':method :url :status'))
   app.locals.pretty = true
   mongoose.set('debug', true)
-  //app.use(function(err, req, res, next) {
-  //  res.status(err.status || 500);
-  //  res.render('error', {
-  //    message: err.message,
-  //    error: err
-  //  });
-  //});
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
 }
 
 // production error handler

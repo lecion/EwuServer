@@ -16,7 +16,7 @@ exports.auth = function (req, res, next) {
     var req_name = req.body.name || '';
     var req_password = req.body.password || '';
 
-    User.findOne({name: req_name}, ep.done(function (user) {
+    User.one({name: req_name}, ep.done(function (user) {
         if (!user) {
             res.api({}, util.getStatus(config.status.USER_NOT_EXIST))
         } else {
@@ -33,7 +33,10 @@ exports.auth = function (req, res, next) {
     }))
 }
 
-exports.register = function (req, res) {
+exports.register = function (req, res, next) {
+    var ep = new EventProxy();
+    ep.fail(next);
+
     var name = req.body.name,
         password = req.body.password;
     if (!name || name.length <= 3) {
@@ -48,7 +51,7 @@ exports.register = function (req, res) {
             msg: config.status.INVALIDE_PASSWORD[1],
         })
     }
-    User.findByName(name, function (err, user) {
+    User.one({name: name}, ep.done(function (user) {
         if (user) {
             //已经存在该用户
             res.api({}, {
@@ -56,17 +59,13 @@ exports.register = function (req, res) {
                 msg:  config.status.USER_EXIST[1] + ": " + name,
             })
         } else {
-            var _user = new User({
+            var _user = new User.model({
                 name: name,
                 password: password,
             });
-            _user.save(function (err) {
-                if (err) return res.api(err, {
-                    code: err.code,
-                    msg: err.message,
-                });
+            _user.save(ep.done(function() {
                 return res.api(_user);
-            })
+            }));
         }
-    })
+    }))
 }

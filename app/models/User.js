@@ -2,6 +2,7 @@ var config = require('../../config.js');
 var bcrypt = require('bcrypt');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
+var MongooseDao = require('mongoosedao');
 
 var UserSchema = new Schema({
     name: {
@@ -62,9 +63,10 @@ UserSchema.statics = {
             .exec(cb)
     },
     findByName: function (name, cb) {
-        return this.findOne({name: name}, 'name phone avatar meta', cb);
+        return this.findOne({name: name}, cb);
     }
 }
+
 
 UserSchema.path('name').validate(function (v) {
     return v && v.length > 3;
@@ -74,4 +76,6 @@ UserSchema.path('password').validate(function (v) {
     return v && v.length > 5;
 })
 
-module.exports = mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
+var UserDao = new MongooseDao(User);
+module.exports = UserDao;
