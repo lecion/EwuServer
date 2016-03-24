@@ -6,17 +6,10 @@
 
 module.exports = function(schema) {
 
-    //var meta = {
-    //    createAt: {type: Date, default: Date.now()},
-    //    updateAt: {type: Date, default: Date.now()}
-    //};
-
     schema.add({meta: {
         createAt: {type: Date, default: Date.now()},
         updateAt: {type: Date, default: Date.now()}
     }});
-    schema.add({updateAt: {type: Date, default: Date.now()}});
-
 
     schema.pre('save', function(next) {
         if (this.isNew) {
@@ -31,6 +24,5 @@ module.exports = function(schema) {
         this.update({}, {$set: {"meta.updateAt": Date.now()}});
         next();
     });
-
 
 }
