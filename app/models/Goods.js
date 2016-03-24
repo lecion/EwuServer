@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var MongooseDao = require('mongoosedao');
 var goodsSchema = new Schema({
     name: String,
     origin_price: Number,
@@ -10,3 +11,9 @@ var goodsSchema = new Schema({
     quality: String,
     intro: String
 });
+
+var BaseModel = require('./BaseModel');
+goodsSchema.plugin(BaseModel);
+
+var GoodsModel = mongoose.model('goods', goodsSchema);
+module.exports = new MongooseDao(GoodsModel);
