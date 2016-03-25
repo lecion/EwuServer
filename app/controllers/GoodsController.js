@@ -60,5 +60,4 @@ exports.create = function (req, res, next) {
         return res.api(goods);
     });
 
-    //res.api(seller + " 创建商品成功")
 }
