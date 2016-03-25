@@ -14,25 +14,11 @@ var UserSchema = new Schema({
     gender: Number,
     avatar: String,
     location: String,
-    meta: {
-        createAt: {
-            type: Date,
-            default: Date.now()
-        },
-        updateAt: {
-            type: Date,
-            default: Date.now()
-        },
-    }
 })
 
 UserSchema.pre('save', function (next) {
     var user = this
-    if (this.isNew) {
-        this.meta.createAt = this.meta.updateAt = Date.now()
-    } else {
-        this.meta.updateAt = Date.now()
-    }
+
     if (!this.avatar) {
         this.avatar = '';
     }
@@ -55,7 +41,7 @@ UserSchema.statics = {
     fetch: function (cb) {
         return this
             .find({})
-            .sort('meta.updateAt')
+            .sort('update_at')
             .exec(cb)
     },
     findByName: function (name, cb) {
@@ -72,6 +58,10 @@ UserSchema.path('password').validate(function (v) {
     return v && v.length > 5;
 })
 
-var User = mongoose.model('User', UserSchema);
-var UserDao = new MongooseDao(User);
-module.exports = UserDao;
+//var User = mongoose.model('User', UserSchema);
+//var UserDao = new MongooseDao(User);
+
+UserSchema.plugin(require('./BaseModel'));
+UserSchema.index({create_at: -1});
+
+module.exports = new MongooseDao(mongoose.model('User', UserSchema));

@@ -6,22 +6,22 @@
 
 module.exports = function(schema) {
 
-    schema.add({meta: {
-        createAt: {type: Date, default: Date.now()},
-        updateAt: {type: Date, default: Date.now()}
-    }});
+    schema.add({
+        create_at: {type: Date, default: Date.now()},
+        update_at: {type: Date, default: Date.now()}
+    });
 
     schema.pre('save', function(next) {
         if (this.isNew) {
-            this.meta.createAt = this.meta.updateAt = Date.now();
+            this.create_at = this.update_at = Date.now();
         } else {
-            this.meta.updateAt = Date.now();
+            this.update_at = Date.now();
         }
         next();
     });
 
     schema.pre('update', function(next) {
-        this.update({}, {$set: {"meta.updateAt": Date.now()}});
+        this.update({}, {$set: {update_at: Date.now()}});
         next();
     });
 
