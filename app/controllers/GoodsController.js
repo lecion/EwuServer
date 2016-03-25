@@ -25,11 +25,6 @@ exports.show = function (req, res) {
 
 
 exports.create = function (req, res, next) {
-    //var name = validator.trim(req.body.name);
-    //var detail = validator.trim(req.body.detail);
-    //var seller = req.decoded._id;
-    //var sale_price = validator.trim(req.body.sale_price);
-    //var type = validator.isNumeric(req.body.type) ? req.body.type : -1;
 
     var name = req.body.name ? validator.trim(req.body.name) : '';
     var detail = req.body.detail ? validator.trim(req.body.detail) : '';
