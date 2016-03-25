@@ -23,7 +23,8 @@
     "mount-routes": "^1.0.6",
     "res.api": "^1.0.11",
     "serve-favicon": "~2.3.0",
-    "should": "^8.0.1"
+    "should": "^8.0.1",
+    "validator": "^5.1.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

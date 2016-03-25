@@ -11,7 +11,7 @@ exports.list = function (req, res) {
 
 exports.show = function (req, res) {
     User.model.findByName(req.params.id, function (err, user) {
-        if (err) return res.api({}, util.getStatus(config.status.USER_NOT_FOUND));
+        if (err) return res.api({}, util.s(config.s.USER_NOT_FOUND));
         res.api(user);
     })
 }

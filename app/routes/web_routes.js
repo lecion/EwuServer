@@ -77,4 +77,11 @@ router.get('/goods/update', function(req, res, next) {
     })
 })
 
+router.delete('/test/goods/', function(req, res, next) {
+    Goods.deleteAll(function(err) {
+        if (err) return next(err);
+        res.api("删除成功");
+    })
+})
+
 module.exports = router;

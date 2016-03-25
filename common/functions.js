@@ -21,12 +21,13 @@ module.exports.info = function(code) {
     return status.err[code] ? status.err[code] : "Unknown error. Please mail to ylc931116@gmail.com";
 };
 
-module.exports.getStatus = function (status) {
+module.exports.s = function (status) {
     return {
         code: status[0],
         msg: status[1],
     };
 }
+
 //async function encrypt(data) {
 //    let salt = await bcrypt.genSalt(config.SALT_WORK_FACTOR);
 //    let hash = await bcrypt.hash(data, salt);

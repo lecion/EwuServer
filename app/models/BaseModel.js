@@ -4,7 +4,7 @@
  * Reference: http://mongoosejs.com/docs/plugins.html
  */
 
-module.exports = function(schema) {
+module.exports = function(schema, options) {
 
     schema.add({
         create_at: {type: Date, default: Date.now()},
@@ -24,5 +24,9 @@ module.exports = function(schema) {
         this.update({}, {$set: {update_at: Date.now()}});
         next();
     });
+
+    if (options && options.index) {
+        schema.path('update_at').index(options.index)
+    }
 
 }
