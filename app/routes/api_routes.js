@@ -17,7 +17,7 @@ router.get('/users', authMiddleware, user.list);
 router.get('/user/:id', user.show);
 
 //goods
-router.get('/goods', goods.list);
+router.get('/goods', goods.index);
 router.get('/goods/:id', goods.show);
 router.post('/goods', authMiddleware, goods.create);
 //router.post('/goods', authMiddleware.auth, goods.create);

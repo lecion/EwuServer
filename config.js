@@ -27,7 +27,10 @@ var config = {
         GOODS_PRICE_REQUIRED  : [503, '商品描述不能为空'],
         GOODS_TYPE_REQUIRED   : [504, '请输入商品类别']
 
-    }
+    },
+
+
+    list_goods_count : 5,
 }
 
 module.exports = config;

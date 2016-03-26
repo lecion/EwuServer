@@ -2,21 +2,46 @@
  * Created by Lecion on 3/23/16.
  */
 var Goods      = require('../models/Goods');
+var GoodsProxy = require('../proxy/goods')
 var EventProxy = require('eventproxy');
 var validator  = require('validator');
 var util       = require('../../common/functions');
 var conf       = require('../../config');
-exports.list   = function (req, res, next) {
+exports.index  = function (req, res, next) {
     var ep = new EventProxy();
     ep.fail(next);
-    //Goods.all(ep.done(function(goods) {
-    //    res.api(goods);
-    //}))
-    Goods.model.find({})
+
+    var page  = parseInt(req.query.page, 10) || 1;
+    page      = page > 0 ? page : 1;
+    var limit = Number(req.query.limit) || conf.list_goods_count;
+
+    //1 => 热度, 2 => 时间, 3 => 价格
+    var sortType = Number(req.query.sort) || 1;
+
+
+    var query = {};
+
+    var projection = 'name detail sale_price seller';
+
+    var sort = '-collect_count';
+    if (sortType === 2)
+        sort = '-update_at';
+    if (sortType === 3)
+        sort = 'sale_price -update_at';
+
+    var options = {skip : (page - 1) * limit, limit : limit, sort : sort};
+
+    Goods.model.find(query, projection, options)
         .populate('seller', 'name avatar')
         .exec(ep.done(function (goods) {
             res.api(goods);
-        }))
+        }));
+    //
+    //Goods.model.find({})
+    //    .populate('seller', 'name avatar')
+    //    .exec(ep.done(function (goods) {
+    //        res.api(goods);
+    //    }))
 }
 
 exports.show = function (req, res) {
@@ -49,15 +74,9 @@ exports.create = function (req, res, next) {
         return res.api({}, util.s(err));
     }
 
-    Goods.create({
-        name       : name,
-        detail     : detail,
-        sale_price : sale_price,
-        //type: type,
-        seller     : seller,
-    }, function (err, goods) {
-        if (err) return next(err);
+    GoodsProxy.newAndSave(name, detail, null, seller, 0, sale_price, null, function (err, goods) {
+        if (err) return next(err)
         return res.api(goods);
-    });
+    })
 
 }
