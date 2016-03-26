@@ -1,51 +1,51 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
-        watch: {
-            jade: {
-                files: ['views/**'],
-                options: {
-                    livereload: true
+        watch : {
+            jade : {
+                files   : ['views/**'],
+                options : {
+                    livereload : true
                 }
             },
-            js: {
-                files: ['public/js/**', 'models/**/*.js', 'schemas/**/*.js'],
+            js   : {
+                files   : ['public/js/**', 'models/**/*.js', 'schemas/**/*.js'],
                 //tasks: ['jshint'],
-                options: {
-                    livereload: true
+                options : {
+                    livereload : true
                 }
             }
         },
 
-        nodemon: {
-            dev: {
-                options: {
-                    file: 'app.js',
-                    args: [],
-                    ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
-                    watchedExtensions: ['js'],
-                    watachedFolders: ['app', 'config'],
-                    debug: true,
-                    delayTime: 1,
-                    env: {
-                        PORT: 3000
+        nodemon : {
+            dev : {
+                options : {
+                    file              : 'app.js',
+                    args              : [],
+                    ignoredFiles      : ['README.md', 'node_modules/**', '.DS_Store'],
+                    watchedExtensions : ['js'],
+                    watachedFolders   : ['app', 'config'],
+                    debug             : true,
+                    delayTime         : 1,
+                    env               : {
+                        PORT : 3000
                     },
-                    cwd: __dirname
+                    cwd               : __dirname
                 }
             }
         },
 
-        mochaTest: {
-            options: {
-                reporter: 'spec'
+        mochaTest : {
+            options : {
+                reporter : 'spec'
             },
-            src: ['test/**/*.js']
+            src     : ['test/**/*.js']
         },
 
-        concurrent: {
-            tasks: ['nodemon', 'watch'],
-            options: {
-                logConcurrentOutput: true
+        concurrent : {
+            tasks   : ['nodemon', 'watch'],
+            options : {
+                logConcurrentOutput : true
             }
         }
     })

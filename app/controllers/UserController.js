@@ -1,6 +1,6 @@
-var User = require('../models/User');
+var User   = require('../models/User');
 var config = require('../../config.js');
-var util = require('../../common/functions');
+var util   = require('../../common/functions');
 
 exports.list = function (req, res) {
     User.model.find({}, 'name phone avatar', function (err, users) {

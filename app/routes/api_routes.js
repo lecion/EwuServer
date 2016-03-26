@@ -1,11 +1,11 @@
 /**
  * Created by Lecion on 3/23/16.
  */
-var router = require('express').Router();
+var router         = require('express').Router();
 var authController = require('../controllers/AuthController');
 var authMiddleware = require('../../middlewares/auth');
-var user = require('../controllers/UserController');
-var goods = require('../controllers/GoodsController');
+var user           = require('../controllers/UserController');
+var goods          = require('../controllers/GoodsController');
 
 
 //auth

@@ -5,7 +5,7 @@ function dump(obj) {
     if (obj !== null && obj !== undefined) {
         for (var i in obj) {
             var prop = obj[i];
-            output += "┃\t" +i +" = "+prop+"\n";
+            output += "┃\t" + i + " = " + prop + "\n";
         }
     } else {
         output += "┃\t" + obj + "\n";
@@ -17,14 +17,14 @@ function dump(obj) {
 
 module.exports.dump = dump;
 
-module.exports.info = function(code) {
+module.exports.info = function (code) {
     return status.err[code] ? status.err[code] : "Unknown error. Please mail to ylc931116@gmail.com";
 };
 
 module.exports.s = function (status) {
     return {
-        code: status[0],
-        msg: status[1],
+        code : status[0],
+        msg  : status[1],
     };
 }
 

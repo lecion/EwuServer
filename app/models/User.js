@@ -1,19 +1,19 @@
-var config = require('../../config.js');
-var bcrypt = require('bcrypt');
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var config      = require('../../config.js');
+var bcrypt      = require('bcrypt');
+var mongoose    = require('mongoose'),
+    Schema      = mongoose.Schema;
 var MongooseDao = require('mongoosedao');
 
 var UserSchema = new Schema({
-    name: {
-        unique: true,
-        type: String,
+    name     : {
+        unique : true,
+        type   : String,
     },
-    phone: String,
-    password: String,
-    gender: Number,
-    avatar: String,
-    location: String,
+    phone    : String,
+    password : String,
+    gender   : Number,
+    avatar   : String,
+    location : String,
 })
 
 UserSchema.pre('save', function (next) {
@@ -38,14 +38,14 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.statics = {
-    fetch: function (cb) {
+    fetch      : function (cb) {
         return this
             .find({})
             .sort('update_at')
             .exec(cb)
     },
-    findByName: function (name, cb) {
-        return this.findOne({name: name}, cb);
+    findByName : function (name, cb) {
+        return this.findOne({name : name}, cb);
     }
 }
 
@@ -62,6 +62,6 @@ UserSchema.path('password').validate(function (v) {
 //var UserDao = new MongooseDao(User);
 
 UserSchema.plugin(require('./BaseModel'));
-UserSchema.index({create_at: -1});
+UserSchema.index({create_at : -1});
 
 module.exports = new MongooseDao(mongoose.model('User', UserSchema));

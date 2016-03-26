@@ -4,14 +4,14 @@
  * Reference: http://mongoosejs.com/docs/plugins.html
  */
 
-module.exports = function(schema, options) {
+module.exports = function (schema, options) {
 
     schema.add({
-        create_at: {type: Date, default: Date.now()},
-        update_at: {type: Date, default: Date.now()}
+        create_at : {type : Date, default : Date.now()},
+        update_at : {type : Date, default : Date.now()}
     });
 
-    schema.pre('save', function(next) {
+    schema.pre('save', function (next) {
         if (this.isNew) {
             this.create_at = this.update_at = Date.now();
         } else {
@@ -20,8 +20,8 @@ module.exports = function(schema, options) {
         next();
     });
 
-    schema.pre('update', function(next) {
-        this.update({}, {$set: {update_at: Date.now()}});
+    schema.pre('update', function (next) {
+        this.update({}, {$set : {update_at : Date.now()}});
         next();
     });
 
