@@ -25,6 +25,9 @@ var goodsSchema = new Schema({
 });
 
 goodsSchema.plugin(require('./BaseModel'));
+goodsSchema.index({update_at : -1});
+goodsSchema.index({collect_count : -1});
+goodsSchema.index({sale_price : 1, update_at : -1});
 
 var GoodsModel = mongoose.model('goods', goodsSchema);
 

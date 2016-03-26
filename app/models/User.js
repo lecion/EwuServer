@@ -62,6 +62,7 @@ UserSchema.path('password').validate(function (v) {
 //var UserDao = new MongooseDao(User);
 
 UserSchema.plugin(require('./BaseModel'));
+UserSchema.index({name : 1}, {unique : true});
 UserSchema.index({create_at : -1});
 
 module.exports = new MongooseDao(mongoose.model('User', UserSchema));
