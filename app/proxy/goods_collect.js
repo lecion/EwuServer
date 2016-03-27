@@ -16,3 +16,9 @@ exports.newAndSave = function (user_id, goods_id, cb) {
 exports.remove = function (uid, gid, cb) {
     GoodsCollect.delete({user_id : uid, goods_id : gid}, cb);
 }
+
+exports.findByUserId = function (uid, cb) {
+    GoodsCollect.model.find({user_id : uid})
+        .populate('goods_id', 'name')
+        .exec(cb);
+}

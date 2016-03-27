@@ -23,6 +23,7 @@ router.post('/goods', authMiddleware, goods.create);
 //router.post('/goods', authMiddleware.auth, goods.create);
 
 //goods_collect
+router.get('/goods_collects', authMiddleware, goods_collect.index);
 router.post('/goods_collect/collect', authMiddleware, goods_collect.collect);
 router.post('/goods_collect/de_collect', authMiddleware, goods_collect.deCollect);
 

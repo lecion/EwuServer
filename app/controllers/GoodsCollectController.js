@@ -9,6 +9,16 @@ var validator    = require('validator');
 var util         = require('../../common/functions');
 var conf         = require('../../config');
 
+
+exports.index = function (req, res, next) {
+    var user = req.decoded.user;
+
+    GoodsCollect.findByUserId(user, function (err, docs) {
+        if (err) return next(err);
+        return res.api(docs);
+    })
+}
+
 exports.collect = function (req, res, next) {
     var user    = req.decoded.user;
     var goodsId = req.body.goods_id;
