@@ -22,10 +22,15 @@ var config = {
         USER_NOT_FOUND : [401, '未找到该用户'],
 
         //Goods
-        GOODS_NAME_REQUIRED   : [501, '商品名称不能为空'],
-        GOODS_DETAIL_REQUIRED : [502, '商品描述不能为空'],
-        GOODS_PRICE_REQUIRED  : [503, '商品描述不能为空'],
-        GOODS_TYPE_REQUIRED   : [504, '请输入商品类别']
+        GOODS_NAME_REQUIRED     : [501, '商品名称不能为空'],
+        GOODS_DETAIL_REQUIRED   : [502, '商品描述不能为空'],
+        GOODS_PRICE_REQUIRED    : [503, '商品描述不能为空'],
+        GOODS_CATEGORY_REQUIRED : [504, '请输入商品类别'],
+        GOODS_NOT_EXIST         : [505, '商品不存在'],
+
+        //商品收藏
+        GC_ID_REQUIRED    : [601, '商品id不能为空'],
+        GOODS_NOT_COLLECT : [602, '商品还没有被收藏'],
 
     },
 

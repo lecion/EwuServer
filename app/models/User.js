@@ -5,15 +5,16 @@ var mongoose    = require('mongoose'),
 var MongooseDao = require('mongoosedao');
 
 var UserSchema = new Schema({
-    name     : {
+    name          : {
         unique : true,
         type   : String,
     },
-    phone    : String,
-    password : String,
-    gender   : Number,
-    avatar   : String,
-    location : String,
+    phone         : String,
+    password      : String,
+    gender        : Number,
+    avatar        : String,
+    location      : String,
+    collect_count : {type : Number, default : 0},
 })
 
 UserSchema.pre('save', function (next) {

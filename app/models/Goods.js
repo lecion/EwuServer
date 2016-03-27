@@ -1,10 +1,10 @@
 /**
  * Created by Lecion on 12/18/15.
  */
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose    = require('mongoose');
+var Schema      = mongoose.Schema;
 var MongooseDao = require('mongoosedao');
-var ObjectId = Schema.Types.ObjectId;
+var ObjectId    = Schema.Types.ObjectId;
 var goodsSchema = new Schema({
     name          : String,
     detail        : String,
@@ -14,7 +14,7 @@ var goodsSchema = new Schema({
     seller        : {type : ObjectId, ref : 'User'},
     origin_price  : Number,
     sale_price    : Number,
-    type          : {type : ObjectId, ref : 'Type'},
+    category      : {type : ObjectId, ref : 'Category'},
     collect_count : {type : Number, default : 0},
     location      : {
         province : String,
@@ -29,6 +29,6 @@ goodsSchema.index({update_at : -1});
 goodsSchema.index({collect_count : -1});
 goodsSchema.index({sale_price : 1, update_at : -1});
 
-var GoodsModel = mongoose.model('goods', goodsSchema);
+var GoodsModel = mongoose.model('Goods', goodsSchema);
 
 module.exports = new MongooseDao(GoodsModel);
