@@ -27,6 +27,7 @@ var config = {
         GOODS_PRICE_REQUIRED    : [503, '商品描述不能为空'],
         GOODS_CATEGORY_REQUIRED : [504, '请输入商品类别'],
         GOODS_NOT_EXIST         : [505, '商品不存在'],
+        GOODS_INVALID_ID        : [506, '不是正确的商品ID'],
 
         //商品收藏
         GC_ID_REQUIRED    : [601, '商品id不能为空'],

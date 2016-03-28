@@ -47,6 +47,29 @@ exports.index = function (req, res, next) {
         }));
 }
 
+
+/**
+ * 商品详细信息
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.show = function (req, res, next) {
+    var goodsId = String(req.params.id);
+    var ep      = new EventProxy();
+
+    if (!validator.isMongoId(goodsId)) {
+        return res.api({}, util.s(conf.s.GOODS_INVALID_ID));
+    }
+
+    ep.fail(next);
+
+    GoodsProxy.getFullGoods(goodsId, ep.done(function () {
+
+    }));
+
+}
+
 /**
  * 商品搜索结果
  *
