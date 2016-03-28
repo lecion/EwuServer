@@ -68,8 +68,9 @@ exports.show = function (req, res, next) {
         if (!goods) {
             return res.api_error(msg);
         }
-        goods.replies = replies;
-        return res.api(goods);
+        var _goods     = goods.toObject();
+        _goods.replies = replies;
+        return res.api(_goods);
         //TODO 是否被收藏
     }));
 
