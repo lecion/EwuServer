@@ -45,7 +45,7 @@ router.use('/test/auth', function (req, res, next) {
     }
 })
 
-router['get']('/a', auth, function (req, res) {
+router['get']('/a', auth.auth, function (req, res) {
     res.send('aaaaaaaa')
 })
 

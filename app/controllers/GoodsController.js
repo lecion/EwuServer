@@ -2,7 +2,8 @@
  * Created by Lecion on 3/23/16.
  */
 var Goods      = require('../models/Goods');
-var GoodsProxy = require('../proxy/goods')
+var GoodsProxy = require('../proxy/goods');
+var Collect    = require('../proxy/goods_collect');
 var EventProxy = require('eventproxy');
 var validator  = require('validator');
 var util       = require('../../common/functions');
@@ -68,11 +69,32 @@ exports.show = function (req, res, next) {
         if (!goods) {
             return res.api_error(msg);
         }
+        //TODO 是否被收藏
         var _goods     = goods.toObject();
         _goods.replies = replies;
-        return res.api(_goods);
-        //TODO 是否被收藏
+        ep.emit('full_goods', _goods);
     }));
+
+    ep.all('full_goods', function (goods) {
+        if (req.decoded) {
+            console.log('注册用户')
+            //注册用户,判断收藏状态
+            Collect.getGoodsCollect(req.decoded.user, goods._id, ep.done(function (collect) {
+                if (collect) {
+                    goods.is_collect = true;
+                } else {
+                    goods.is_collect = false;
+                }
+                return res.api(goods);
+            }));
+
+        } else {
+            console.log('非注册用户')
+            //非注册用户,直接为未收藏
+            goods.is_collect = false;
+            return res.api(goods);
+        }
+    })
 
 }
 
