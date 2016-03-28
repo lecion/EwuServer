@@ -15,3 +15,17 @@ exports.getRepliesByGoodsId = function (id, cb) {
             return cb(null, replies);
         })
 }
+
+exports.newAndSave = function (content, goodsId, from, to, replyId, cb) {
+    var reply      = new Reply.model;
+    reply.content  = content;
+    reply.goods_id = goodsId;
+    reply.from     = from;
+    reply.to       = to;
+    reply.reply_id = replyId;
+    reply.save(cb);
+}
+
+exports.getReplyById = function (id, cb) {
+    Reply.one({_id : id}, cb);
+}

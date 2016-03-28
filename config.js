@@ -28,11 +28,15 @@ var config = {
         GOODS_CATEGORY_REQUIRED : [504, '请输入商品类别'],
         GOODS_NOT_EXIST         : [505, '商品不存在'],
         GOODS_INVALID_ID        : [506, '不是正确的商品ID'],
+        GOODS_SALED             : [507, '商品已经售出'],
 
         //商品收藏
         GC_ID_REQUIRED    : [601, '商品id不能为空'],
         GOODS_NOT_COLLECT : [602, '商品还没有被收藏'],
 
+        //评论
+        REPLY_INVALID_ID       : [701, '不是正确的评论ID'],
+        REPLY_CONTENT_REQUIRED : [702, '评论内容不能为空'],
     },
 
 

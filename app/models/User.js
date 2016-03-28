@@ -15,6 +15,7 @@ var UserSchema = new Schema({
     avatar        : String,
     location      : String,
     collect_count : {type : Number, default : 0},
+    reply_count   : {type : Number, default : 0},
 })
 
 UserSchema.pre('save', function (next) {

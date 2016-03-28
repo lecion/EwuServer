@@ -7,7 +7,7 @@ var authMiddleware = require('../../middlewares/auth');
 var user           = require('../controllers/UserController');
 var goods          = require('../controllers/GoodsController');
 var goods_collect  = require('../controllers/GoodsCollectController');
-
+var reply          = require('../controllers/ReplyController');
 //auth
 router.post('/auth', authController.auth);
 router.post('/auth/register', authController.register);
@@ -21,6 +21,9 @@ router.get('/goods', goods.index);
 router.get('/goods/search', goods.search);
 router.get('/goods/:id', goods.show);
 router.post('/goods', authMiddleware, goods.create);
+
+//评论
+router.post('/goods/:id/reply', authMiddleware, reply.create);
 //router.post('/goods', authMiddleware.auth, goods.create);
 
 //goods_collect
