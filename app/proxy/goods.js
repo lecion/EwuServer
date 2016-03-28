@@ -26,8 +26,8 @@ exports.getFullGoods = function (id, cb) {
     var ep     = new EventProxy();
     var events = ['goods', 'replies'];
 
-    ep.assign(events, function (goods, seller, replies) {
-            cb(null, '', goods, seller, replies);
+    ep.assign(events, function (goods, replies) {
+            cb(null, '', goods, replies);
         })
         .fail(cb);
 

@@ -64,8 +64,13 @@ exports.show = function (req, res, next) {
 
     ep.fail(next);
 
-    GoodsProxy.getFullGoods(goodsId, ep.done(function () {
-
+    GoodsProxy.getFullGoods(goodsId, ep.done(function (msg, goods, replies) {
+        if (!goods) {
+            return res.api_error(msg);
+        }
+        goods.replies = replies;
+        return res.api(goods);
+        //TODO 是否被收藏
     }));
 
 }

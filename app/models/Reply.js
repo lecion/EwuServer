@@ -8,9 +8,9 @@ var ObjectId    = Schema.Types.ObjectId;
 var ReplySchema = new Schema({
     content  : String,
     goods_id : {type : ObjectId, ref : 'Goods'},
-    reply_id : {type : ObjectId, ref : 'Reply'},
+    reply_id : {type : ObjectId, ref : 'Reply', default : null},
     from     : {type : ObjectId, ref : 'User'},
-    to       : {type : ObjectId, ref : 'User'},
+    to       : {type : ObjectId, ref : 'User', default : null},
     deleted  : {type : Boolean, default : false},
 });
 
