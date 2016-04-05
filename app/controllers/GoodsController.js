@@ -69,7 +69,6 @@ exports.show = function (req, res, next) {
         if (!goods) {
             return res.api_error(msg);
         }
-        //TODO 是否被收藏
         var _goods     = goods.toObject();
         _goods.replies = replies;
         ep.emit('full_goods', _goods);
@@ -89,7 +88,6 @@ exports.show = function (req, res, next) {
             }));
 
         } else {
-            console.log('非注册用户')
             //非注册用户,直接为未收藏
             goods.is_collect = false;
             return res.api(goods);
