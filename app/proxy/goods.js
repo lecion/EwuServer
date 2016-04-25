@@ -33,6 +33,7 @@ exports.getFullGoods = function (id, cb) {
 
     Goods.model.findOne({_id : id})
         .populate('seller', 'avatar name')
+        .populate('category', '_id name')
         .exec(ep.done(function (goods) {
             if (!goods) {
                 ep.unbind;

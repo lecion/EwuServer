@@ -8,9 +8,7 @@ var ObjectId    = Schema.Types.ObjectId;
 var goodsSchema = new Schema({
     name          : String,
     detail        : String,
-    pictures      : [{
-        url : String,
-    }],
+    pictures      : [String],
     seller        : {type : ObjectId, ref : 'User'},
     origin_price  : Number,
     sale_price    : Number,

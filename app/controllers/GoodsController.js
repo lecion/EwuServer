@@ -30,7 +30,7 @@ exports.index = function (req, res, next) {
     //1 => 热度, 2 => 时间, 3 => 价格
     var sortType = Number(req.query.sort) || 1;
 
-    var projection = 'name detail sale_price seller category';
+    var projection = 'name detail sale_price seller category pictures';
 
     var sort = '-collect_count';
     if (sortType === 2)
@@ -115,7 +115,7 @@ exports.search = function (req, res, next) {
 
     var keyword = req.query.keyword ? validator.trim(req.query.keyword) : '';
 
-    var category = req.query.category ? req.query.category : null;
+    var category = req.query.category ? req.query.category : 0;
 
     var query = {};
 
@@ -126,7 +126,7 @@ exports.search = function (req, res, next) {
         ]
     }
 
-    var projection = 'name detail sale_price seller category';
+    var projection = 'name detail sale_price seller category pictures';
 
     var sort = '-collect_count';
     if (sortType === 2)
@@ -149,18 +149,23 @@ exports.create = function (req, res, next) {
 
     var name       = req.body.name ? validator.trim(req.body.name) : '';
     var detail     = req.body.detail ? validator.trim(req.body.detail) : '';
-    var sale_price = req.body.sale_price ? validator.trim(req.body.sale_price) : '';
+    var sale_price = req.body.sale_price ? parseFloat(req.body.sale_price) : -1;
     var category   = req.body.category ? req.body.category : -1;
 
     var seller = req.decoded.user;
 
+    var pictures = req.body.pictures ? req.body.pictures : [];
+
+    console.log(pictures instanceof Array);
+    //return res.send(pictures);
     //验证
+    console.log('name ' + name + ' detail ' + detail + ' sale_price ' + sale_price + ' category ' + category + ' pictures ' + pictures)
     var err;
     if (name === '') {
         err = conf.s.GOODS_NAME_REQUIRED;
     } else if (detail === '') {
         err = conf.s.GOODS_DETAIL_REQUIRED;
-    } else if (sale_price == '') {
+    } else if (sale_price == -1) {
         err = conf.s.GOODS_PRICE_REQUIRED;
     } else if (category === -1) {
         err = conf.s.GOODS_TYPE_REQUIRED;
@@ -169,10 +174,10 @@ exports.create = function (req, res, next) {
     if (err) {
         return res.api({}, util.s(err));
     }
-
-    GoodsProxy.newAndSave(name, detail, null, category, seller, 0, sale_price, null, function (err, goods) {
-        if (err) return next(err)
-        return res.api(goods);
+    GoodsProxy.newAndSave(name, detail, pictures, category, seller, 0, sale_price, null, function (err, goods) {
+        if (err) return next(err);
+        console.log('id ' + goods._id);
+        return res.api({id : goods._id});
     })
 
 }
