@@ -5,8 +5,8 @@ var Reply                   = require('../models/Reply');
 var EventProxy              = require('eventproxy');
 exports.getRepliesByGoodsId = function (id, cb) {
     Reply.model.find({goods_id : id, deleted : false}, '', {sort : 'create_at'})
-        .populate('from', 'name')
-        .populate('to', 'name')
+        .populate('from', 'name avatar')
+        .populate('to', 'name avatar')
         .exec(function (err, replies) {
             if (err) return cb(err);
             if (replies.length === 0) {
