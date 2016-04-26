@@ -4,7 +4,7 @@
 var Reply                   = require('../models/Reply');
 var EventProxy              = require('eventproxy');
 exports.getRepliesByGoodsId = function (id, cb) {
-    Reply.model.find({goods_id : id, deleted : false}, '', {sort : 'create_at'})
+    Reply.model.find({goods_id : id, deleted : false}, '', {sort : '-create_at'})
         .populate('from', 'name avatar')
         .populate('to', 'name avatar')
         .exec(function (err, replies) {
@@ -28,4 +28,15 @@ exports.newAndSave = function (content, goodsId, from, to, replyId, cb) {
 
 exports.getReplyById = function (id, cb) {
     Reply.one({_id : id}, cb);
+}
+
+exports.getReplyDetailById = function (id, cb) {
+    Reply.model.findOne({_id : id, deleted : false}, '')
+        .populate('from', 'name avatar')
+        .populate('to', 'name')
+        .exec(function (err, reply) {
+            if (err) return cb(err);
+            if (reply) return cb(null, reply)
+            return cb(null, null);
+        })
 }

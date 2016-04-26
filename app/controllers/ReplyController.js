@@ -59,7 +59,10 @@ exports.create = function (req, res, next) {
 
     ep.all('reply_saved', function (reply) {
         User.addReply(reply.from, ep.done(function () {
-            return res.api("回复成功");
+            Reply.getReplyDetailById(reply._id, function (err, reply) {
+                if (err) return res.api_error("获取评论失败")
+                return res.api(reply)
+            })
         }));
     })
 
